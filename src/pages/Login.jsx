@@ -12,6 +12,8 @@ function Login() {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      console.log(auth, email, password);
+
       console.log("User logged in Successfully");
       <Navigate to={paths.home} />;
       alert("User logged in Successfully");

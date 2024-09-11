@@ -2,9 +2,9 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Link } from "react-router-dom";
-import { db } from "../firebase/firebase";
+import { db, auth } from "../firebase/firebase";
 import { getAuth } from "firebase/auth";
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, setDoc, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
 
 const CarouselMovie = ({ data }) => {
   const responsive = {
@@ -26,22 +26,34 @@ const CarouselMovie = ({ data }) => {
     },
   };
 
-  const addToWishlist = async (movieId) => {
-    const auth = getAuth();
-    const user = auth.currentUser;
+  const addToWishlist = async (movie) => {
+    try {
+      const user = auth.currentUser;
+      if (user) {
+        const userRef = doc(db, "Users", user.uid);
+        const docSnapshot = await getDoc(userRef);
+        if (!docSnapshot.exists()) {
+          await setDoc(userRef, {
+            wishlist: [],
+          });
+          console.log("User document created with empty wishlist");
+        }
 
-    if (user) {
-      try {
-        const wishlistRef = doc(db, "wishlists", user.uid);
-        await updateDoc(wishlistRef, {
-          movies: arrayUnion(movieId),
+        await updateDoc(userRef, {
+          wishlist: arrayUnion({
+            id: movie.id,
+            title: movie.title,
+            poster_path: movie.poster_path,
+            vote_average: movie.vote_average,
+          }),
         });
-        alert("Movie added to wishlist!");
-      } catch (error) {
-        console.error("Error adding to wishlist:", error);
+
+        console.log("Movie added to wishlist!");
+      } else {
+        console.log("User is not logged in.");
       }
-    } else {
-      alert("Please log in to add movies to your wishlist.");
+    } catch (error) {
+      console.error("Error adding movie to wishlist: ", error);
     }
   };
 
@@ -79,13 +91,13 @@ const CarouselMovie = ({ data }) => {
                   {item.vote_average.toFixed(1)}
                 </span>
               </div>
-              <button
-                onClick={() => addToWishlist(item.id)}
-                className="wishlist-button"
-              >
-                Add to Wishlist
-              </button>
             </Link>
+            <button
+              onClick={() => addToWishlist(item)}
+              className="wishlist-button"
+            >
+              Add to Wishlist
+            </button>
           </div>
         );
       })}

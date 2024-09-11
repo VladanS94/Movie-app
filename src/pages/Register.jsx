@@ -21,7 +21,7 @@ function Register() {
           email: user.email,
           firstName: fname,
           lastName: lname,
-          photo: "",
+          wishlist: [],
         });
       }
       console.log("User Registered Successfully!!");
