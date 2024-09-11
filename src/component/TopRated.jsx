@@ -1,24 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import "react-multi-carousel/lib/styles.css";
+import CarouselMovie from "./CarouselMovie";
+import useFetch from "../hooks/useFetch";
 
 const TopRated = () => {
-  const [movie, setMovie] = useState([]);
-  const apiKey = process.env.REACT_APP_API_KEY;
+  const { data, error, loading } = useFetch(
+    `https://api.themoviedb.org/3/movie/top_rated`
+  );
 
-  console.log(process.env);
+  return (
+    <div className="top-rated">
+      <h1 className="title">TOP RATED MOVIES</h1>
 
-  const fetchMovies = async () => {
-    await fetch(
-      `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}`
-    )
-      .then((response) => response.json())
-      .then((data) => setMovie(data.results))
-      .catch((error) => console.error(error));
-  };
-
-  useEffect(() => {
-    fetchMovies();
-  }, []);
-  return <div></div>;
+      <CarouselMovie data={data} />
+      {loading ? <div className="text-white">LOADING</div> : null}
+      {error ? <div className="text-red-600">{error}</div> : null}
+    </div>
+  );
 };
 
 export default TopRated;
