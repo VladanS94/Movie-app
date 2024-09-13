@@ -7,6 +7,10 @@ import LogIn from "../pages/Login";
 import Register from "../pages/Register";
 import LogInRoute from "./LogInRoute";
 import Protected from "./Protected";
+import TopRatedMovies from "../pages/TopRatedMovies";
+import PopularMovies from "../pages/PopularMovies";
+import NowPlayingMovies from "../pages/NowPlayingMovies";
+import UpcomingMovies from "../pages/UpcomingMovies";
 
 export const paths = Object.freeze({
   home: "/",
@@ -14,6 +18,10 @@ export const paths = Object.freeze({
   wishlist: "/wishlist",
   login: "/login",
   register: "/register",
+  topratedmovies: "/topratedmovies",
+  popularmovies: "/popularmovies",
+  nowplayingmovies: "/nowplayingmovies",
+  upcomingmovies: "/upcomingmovies",
 });
 
 const Routes = () => {
@@ -56,6 +64,38 @@ const Routes = () => {
         <LogInRoute>
           <Register />
         </LogInRoute>
+      ),
+    },
+    {
+      path: paths.topratedmovies,
+      element: (
+        <Protected>
+          <TopRatedMovies />
+        </Protected>
+      ),
+    },
+    {
+      path: paths.popularmovies,
+      element: (
+        <Protected>
+          <PopularMovies />
+        </Protected>
+      ),
+    },
+    {
+      path: paths.nowplayingmovies,
+      element: (
+        <Protected>
+          <NowPlayingMovies />
+        </Protected>
+      ),
+    },
+    {
+      path: paths.upcomingmovies,
+      element: (
+        <Protected>
+          <UpcomingMovies />
+        </Protected>
       ),
     },
   ]);

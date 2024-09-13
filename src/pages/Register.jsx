@@ -1,8 +1,9 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
+import classes from "../css/Register.module.css";
 import { auth, db } from "./../firebase/firebase";
 import { setDoc, doc } from "firebase/firestore";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { paths } from "../app/Route";
 
 function Register() {
@@ -33,14 +34,15 @@ function Register() {
   };
 
   return (
-    <form style={{ paddingTop: 150 }} onSubmit={handleRegister}>
+    <div className={classes.registerBody}>
+    <form className={classes.registerForm} onSubmit={handleRegister}>
       <h3>Sign Up</h3>
 
       <div className="mb-3">
-        <label>First name</label>
+        <label className={classes.registerLabel}>First name</label>
         <input
           type="text"
-          className="form-control"
+          className={classes.registerInput}
           placeholder="First name"
           onChange={(e) => setFname(e.target.value)}
           required
@@ -48,20 +50,20 @@ function Register() {
       </div>
 
       <div className="mb-3">
-        <label>Last name</label>
+        <label className={classes.registerLabel}>Last name</label>
         <input
           type="text"
-          className="form-control"
+          className={classes.registerInput}
           placeholder="Last name"
           onChange={(e) => setLname(e.target.value)}
         />
       </div>
 
       <div className="mb-3">
-        <label>Email address</label>
+        <label className={classes.registerLabel}>Email address</label>
         <input
           type="email"
-          className="form-control"
+          className={classes.registerInput}
           placeholder="Enter email"
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -69,10 +71,10 @@ function Register() {
       </div>
 
       <div className="mb-3">
-        <label>Password</label>
+        <label className={classes.registerLabel}>Password</label>
         <input
           type="password"
-          className="form-control"
+          className={classes.registerInput}
           placeholder="Enter password"
           onChange={(e) => setPassword(e.target.value)}
           required
@@ -80,14 +82,18 @@ function Register() {
       </div>
 
       <div className="d-grid">
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className={classes.registerButton}>
           Sign Up
         </button>
       </div>
       <p className="forgot-password text-right">
-        Already registered <a href="/login">Login</a>
+        Already registered? {" "}
+        <Link className={classes.registerLink} to={paths.login}>
+          Login
+        </Link>
       </p>
     </form>
+    </div>
   );
 }
 export default Register;

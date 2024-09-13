@@ -3,7 +3,6 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Link } from "react-router-dom";
 import { db, auth } from "../firebase/firebase";
-import { getAuth } from "firebase/auth";
 import { doc, setDoc, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
 
 const CarouselMovie = ({ data }) => {
