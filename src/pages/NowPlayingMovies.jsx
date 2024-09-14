@@ -13,7 +13,7 @@ const NowPlayingMovies = () => {
         {data.map((item, index) => {
           return (
             <div className="top-rated-movie-card" key={item.id}>
-              <Link to={`${item.id}`}>
+              <Link to={`/movie/${item.id}`}>
                 <img
                   width={250}
                   height={250}

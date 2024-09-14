@@ -61,7 +61,7 @@ const CarouselMovie = ({ data }) => {
       {data.map((item, index) => {
         return (
           <div className="movie-cards" key={item.id}>
-            <Link to={`${item.id}`}>
+            <Link to={`/movie/${item.id}`}>
               <img
                 width={250}
                 height={250}

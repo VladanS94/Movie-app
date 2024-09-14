@@ -14,7 +14,7 @@ import UpcomingMovies from "../pages/UpcomingMovies";
 
 export const paths = Object.freeze({
   home: "/",
-  id: "/:id",
+  id: "/movie/:id",
   wishlist: "/wishlist",
   login: "/login",
   register: "/register",

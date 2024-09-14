@@ -78,23 +78,6 @@ const Navbar = () => {
         ) : (
           ""
         )}
-        {/* {user && userProfile && (
-          <div
-            className="navbar-user"
-            onClick={() => setShowLogoutModal(!showLogoutModal)}
-          >
-            {showLogoutModal && (
-              <div className={classes.logoutModal}>
-                <Link to={paths.wishlist} onClick={() => setIsOpen(false)}>
-                  <h1 className="navbar-wishlist">My wish list</h1>
-                </Link>
-                <p className="logout" onClick={handleLogout}>
-                  LOG OUT
-                </p>
-              </div>
-            )}
-          </div>
-        )} */}
       </div>
     </nav>
   );

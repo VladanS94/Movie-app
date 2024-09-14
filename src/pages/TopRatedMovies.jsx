@@ -7,15 +7,13 @@ const TopRatedMovies = () => {
     `https://api.themoviedb.org/3/movie/top_rated`
   );
 
-  console.log(data);
-
   return (
     <div>
       <div className="topRatedMovies">
         {data.map((item, index) => {
           return (
             <div className="top-rated-movie-card" key={item.id}>
-              <Link to={`${item.id}`}>
+              <Link to={`/movie/${item.id}`}>
                 <img
                   width={250}
                   height={250}
