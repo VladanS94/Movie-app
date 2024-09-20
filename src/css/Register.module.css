@@ -1,0 +1,106 @@
+*,
+*:before,
+*:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.background{
+    width: 430px;
+    height: 520px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+}
+.background .shape{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+}
+.shape:first-child{
+    background: linear-gradient(
+        var(--body_background),
+        var(--card_shadow)
+    );
+    left: -80px;
+    top: -80px;
+}
+.shape:last-child{
+    background: linear-gradient(
+        to right,
+        var(--link_color),
+        var(--navbar-bg)
+    );
+    right: -30px;
+    bottom: -80px;
+}
+.registerBody{
+    height: 100dvh;
+}
+.registerForm{
+    width: 400px;
+    background-color: var(--body_background);
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 55%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 50px 35px;
+}
+@media screen and (max-width: 425px) {
+    .registerForm{
+        width: 100%;
+    }
+}
+.registerForm *{
+    font-family: 'Poppins',sans-serif;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+.registerForm h3{
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+}
+
+.registerLabel{
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+}
+.registerInput{
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: var(--inputs-background);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+::placeholder{
+    color: var(--body_text_color);
+}
+.registerButton{
+    margin-top: 50px;
+    width: 100%;
+    background-color: var(--inputs-background);
+    color: var(--body_text_color);
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.registerLink {
+    color: var(--link_color);
+}

@@ -1,0 +1,13 @@
+.logoutModal {
+    position: absolute;
+    right: 5px;
+    top: 75%;
+    background: var(--body_background);
+    height: 150px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    
+}
