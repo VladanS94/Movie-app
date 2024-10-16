@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { auth } from "../firebase/firebase"; 
+import { auth } from "../firebase/firebase";
 import { paths } from "./Route";
 
 const Protected = ({ children }) => {
@@ -21,7 +21,7 @@ const Protected = ({ children }) => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>; // Optionally replace this with a spinner or a custom loading component
+    return <div>Loading...</div>;
   }
 
   if (!isAuthenticated) {

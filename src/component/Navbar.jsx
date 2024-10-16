@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import icon from "./../assets/netflix.png";
-import classes from "../css/Navbar.module.css";
 import { Link } from "react-router-dom";
-import { auth } from "../firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import Switch from "./Switch";
 import { paths } from "../app/Route";
+import { auth } from "../firebase/firebase";
 import acc from "../assets/account.svg";
 
 const Navbar = () => {
@@ -19,18 +18,30 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleLogout = () => {
+    auth.signOut().then(() => {
+      setShowLogoutModal(!showLogoutModal);
+      console.log("User logged out successfully");
+    });
+  };
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
-        const userDoc = doc(db, "Users", currentUser.uid);
-        const docSnapshot = await getDoc(userDoc);
-        setIsOpen(false);
+        try {
+          const userDoc = doc(db, "Users", currentUser.uid);
+          const docSnapshot = await getDoc(userDoc);
+          setIsOpen(false);
 
-        if (docSnapshot.exists()) {
-          setUserProfile(docSnapshot.data());
-        } else {
-          console.log("No such document!");
+          if (docSnapshot.exists()) {
+            console.log("Document data:", docSnapshot.data());
+            setUserProfile(docSnapshot.data());
+          } else {
+            console.log("No such document!");
+          }
+        } catch (error) {
+          console.error("Error fetching document:", error.message);
         }
       } else {
         setUser(null);
@@ -41,14 +52,9 @@ const Navbar = () => {
     return () => unsubscribe();
   }, []);
 
-  const handleLogout = () => {
-    auth.signOut().then(() => {
-      setShowLogoutModal(!showLogoutModal);
-      console.log("User logged out successfully");
-    });
-  };
-
-  console.log("asdasdads", isOpen);
+  if (!user) {
+    return null;
+  }
 
   return (
     <nav className="navbar">
@@ -60,10 +66,10 @@ const Navbar = () => {
         <Switch />
         {user && userProfile && (
           <div onClick={() => toggleMenu()}>
-            <img src={acc} alt="..." />
+            <img src={acc} alt="User Profile Icon" />
           </div>
         )}
-        {isOpen && userProfile ? (
+        {isOpen && userProfile && (
           <div className="user-profile-model">
             <p>
               {userProfile.firstName} {userProfile.lastName}
@@ -75,8 +81,6 @@ const Navbar = () => {
               LOG OUT
             </p>
           </div>
-        ) : (
-          ""
         )}
       </div>
     </nav>
